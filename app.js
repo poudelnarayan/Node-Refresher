@@ -1,13 +1,10 @@
-const fs = require("fs");
+const http = require("http");
 
-const userName = "Narayan Poudel";
+const server = http.createServer((req, res) => {
+  console.log("INCOMING REQUEST");
+  console.log(req.method, req.url);
 
-fs.writeFile("user-data.txt", "Name: " + userName, (err) => {
-  if (err) {
-    console.log(err);
-    return;
-  }
-  console.log("Wrote to file");
+  res.end("Succes!");
 });
 
-// run the code using:  node app.js
+server.listen(5000);
