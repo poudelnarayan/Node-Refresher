@@ -1,4 +1,13 @@
+const fs = require("fs");
+
 const userName = "Narayan Poudel";
 
-console.log(userName);
+fs.writeFile("user-data.txt", "Name: " + userName, (err) => {
+  if (err) {
+    console.log(err);
+    return;
+  }
+  console.log("Wrote to file");
+});
+
 // run the code using:  node app.js
