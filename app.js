@@ -4,8 +4,22 @@ const server = http.createServer((req, res) => {
   console.log("INCOMING REQUEST");
   console.log(req.method, req.url);
 
-  res.setHeader("Content-Type", "text/plain");
-  res.end("<h1>Succes!</h1>"); // -> outputs <h1>Success!</h1> in the browser
+  if (req.method === "POST") {
+    let body = "";
+    req.on("end", () => {
+      const userName = body.split("=")[1];
+      res.end("<h1>" + userName + "</h1>");
+    });
+    req.on("data", (data) => {
+      body += data.toString();
+      console.log(data.toString());
+    });
+  } else {
+    res.setHeader("Content-Type", "text/html");
+    res.end(
+      '<form method="POST"><input type="text" name ="username" ><button type="submit">Create User </button> </form>'
+    );
+  }
 });
 
 server.listen(5000);
